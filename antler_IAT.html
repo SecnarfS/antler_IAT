@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<p>Hit the 'i' key if the image below displays a positive word, or a person with antlers.</p>
+<p>Hit the 'e' key if the image below displays a negative word, or a person without anter.s</p>
+<p>Hit the space bar to begin.</p>
+
+<div id="photo_select">
+<table>
+<tr>
+<td>e<br/>Negative<br/>No antlers</td>
+<td id="spot_2">
+<img id="test_img" src="test_img/placeholder.jpg">
+</td>
+<td>i<br/>Positive<br/>Antlers</td>
+</tr>
+</table>
+</div>
+
+<!--table>
+<tr>
+<td id="spot_1">
+<button onclick="incrementNoAntler()">
+<img src="test_img/test_no_antler.jpg">
+</button>
+</td>
+<td id="spot_2">
+<button onclick="incrementAntler()">
+<img src="test_img/test_antler.jpg">
+</button>
+</td>
+</tr>
+</table-->
+
+
+<!--button onclick="myFunction()">Try it</button-->
+<p>You have liked the antlers or pressed "i"</p>
+<p id="i_count">0</p>
+<p> times, and without antlers or pressed "e"</p>
+<p id="e_count">0</p>
+<p> times. Thanks for your input!</p>
+
+<p id="demo"></p>
+
+<script>
+var all_words = ["good", "sexy", "bad", "gross", "test_no_antler", "test_antler"];
+//var good_words = ["good", "sexy"];
+//var bad_words = ["bad", "gross"];
+var i_count = 0;
+var e_count = 0;
+
+document.addEventListener('keydown', function(event) {
+    if(event.keyCode == 32) {
+        i_count = 0;
+        e_count = 0;
+        updateCounter();
+        changeImage();
+    }
+    if(event.keyCode == 73) { 
+        i_count += 1;
+        updateCounter();
+        changeImage();
+    }
+    else if(event.keyCode == 69) {
+        e_count += 1;
+        updateCounter();
+        changeImage();
+    }
+});
+
+function changeImage() {
+    var word_ind = Math.floor(Math.random() * all_words.length);
+    var new_img = "test_img/" + all_words[word_ind] + ".jpg";
+    document.getElementById("test_img").setAttribute("src", new_img); 
+}
+function updateCounter() {
+    document.getElementById("e_count").innerHTML = e_count;
+    document.getElementById("i_count").innerHTML = i_count;
+}
+
+//function incrementNoAntler() {
+//    var old = parseInt(document.getElementById("no_antler_count").innerHTML);
+//    document.getElementById("no_antler_count").innerHTML = old + 1;
+//    switch_places();
+//}
+//function incrementAntler() {
+//    var old = parseInt(document.getElementById("antler_count").innerHTML);
+//    document.getElementById("antler_count").innerHTML = old + 1;
+//    switch_places();
+//}
+//function switch_places() {
+//    var temp = document.getElementById("spot_1").innerHTML;
+//    document.getElementById("spot_1").innerHTML = document.getElementById("spot_2").innerHTML;
+//    document.getElementById("spot_2").innerHTML = temp;
+//}
+</script>
+
+</body>
+</html>
