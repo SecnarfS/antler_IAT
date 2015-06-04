@@ -41,9 +41,12 @@
 <p id="e_count">0</p>
 <p> times. Thanks for your input!</p>
 
+<p id="alert"></p>
 <p id="demo"></p>
 
 <script>
+var num_rounds = 0;
+var in_progress = 0;
 var all_words = ["good", "sexy", "bad", "gross", "test_no_antler", "test_antler"];
 //var good_words = ["good", "sexy"];
 //var bad_words = ["bad", "gross"];
@@ -51,18 +54,26 @@ var i_count = 0;
 var e_count = 0;
 
 document.addEventListener('keydown', function(event) {
-    if(event.keyCode == 32) {
-        i_count = 0;
-        e_count = 0;
-        updateCounter();
-        changeImage();
+    if(event.keyCode == 32) { // space bar
+        if (in_progress == 0) {
+          in_progress = 1;
+          i_count = 0;
+          e_count = 0;
+          num_rounds = 0;
+          updateCounter();
+          changeImage();
+        } else {
+          document.getElementById("alert").innerHTML = "Please finish this round before trying to start a new one!!!";
+        }
     }
     if(event.keyCode == 73) { 
+        num_rounds++;
         i_count += 1;
         updateCounter();
         changeImage();
     }
     else if(event.keyCode == 69) {
+        num_rounds++;
         e_count += 1;
         updateCounter();
         changeImage();
@@ -70,8 +81,14 @@ document.addEventListener('keydown', function(event) {
 });
 
 function changeImage() {
-    var word_ind = Math.floor(Math.random() * all_words.length);
-    var new_img = "test_img/" + all_words[word_ind] + ".jpg";
+    var new_img;
+    if (num_rounds == 20)
+    {
+      new_img = "test_img/yola.jpg";  
+    } else {
+      var word_ind = Math.floor(Math.random() * all_words.length);
+      new_img = "test_img/" + all_words[word_ind] + ".jpg";
+    }
     document.getElementById("test_img").setAttribute("src", new_img); 
 }
 function updateCounter() {
